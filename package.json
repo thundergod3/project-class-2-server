@@ -10,6 +10,9 @@
     "dev": "NODE_ENV=development nodemon --unhandled-rejections=strict --experimental-json-modules npm run migrate && ./src/index.js",
     "migrate": "npx sequelize-cli db:migrate"
   },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "connect-session-sequelize": "^7.1.2",
