@@ -1,13 +1,13 @@
 import pkg from "sequelize";
 
-import { FacultyModel, MajorModel, ModuleModel } from "../../models/index.js";
-import ModuleValidation from "./module.validation.js";
+import { FacultyModel, MajorModel, UserModel } from "../../models/index.js";
+import UserValidation from "./user.validation.js";
 
 const { Op } = pkg;
 
-const ModuleController = {
-  getModuleList: async (query) => {
-    const { keyword = "", page = 0, limit = 10 } = query;
+const UserController = {
+  getUserList: async (query) => {
+    const { keyword = "", role, page = 0, limit = 10 } = query;
     const offset = page * limit;
     let filter = {};
 
@@ -24,10 +24,19 @@ const ModuleController = {
       };
     }
 
-    const data = await ModuleModel.findAndCountAll({
+    if (role) {
+      filter = {
+        ...filter,
+        role: {
+          [Op.iLike]: role,
+        },
+      };
+    }
+
+    const data = await UserModel.findAndCountAll({
       limit,
       offset,
-      where: keyword,
+      where: filter,
       include: [{ model: FacultyModel }, { model: MajorModel }],
       distinct: true,
     });
@@ -38,28 +47,28 @@ const ModuleController = {
     };
   },
 
-  createModule: async (body) => {
-    const validate = ModuleValidation.createModule(body);
+  createUser: async (body) => {
+    const validate = UserValidation.createUser(body);
 
     if (validate.error) {
       throw new Error(validate.error.message);
     }
 
-    const { code, name, facultyId, majorId, userId } = body;
+    const { code, name, role, facultyId, majorId } = body;
 
-    const newModule = await ModuleModel.create({
+    const newUser = await UserModel.create({
       code,
       name,
+      role,
       facultyId,
       majorId,
-      userId,
     });
 
-    return newModule;
+    return newUser;
   },
 
-  updateModule: async (id, body) => {
-    const validate = ModuleValidation.updateModule({
+  updateUser: async (id, body) => {
+    const validate = UserValidation.updateUser({
       id,
       ...body,
     });
@@ -68,27 +77,26 @@ const ModuleController = {
       throw new Error(validate.error.message);
     }
 
-    const { code, name, facultyId, majorId, userId } = body;
+    const { code, name, facultyId, majorId } = body;
 
-    const findModule = await ModuleModel.findOne({
+    const findUser = await UserModel.findOne({
       where: {
         id,
       },
     });
 
-    await findModule.update({
+    await findUser.update({
       code,
       name,
       facultyId,
       majorId,
-      userId,
     });
 
-    return findModule;
+    return findUser;
   },
 
-  deleteModule: async (id) => {
-    const validate = ModuleValidation.deleteModule({
+  deleteUser: async (id) => {
+    const validate = UserValidation.deleteUser({
       id,
     });
 
@@ -96,14 +104,14 @@ const ModuleController = {
       throw new Error(validate.error.message);
     }
 
-    const destroyModule = await ModuleModel.destroy({
+    const destroyUser = await UserModel.destroy({
       where: {
         id,
       },
     });
 
-    return destroyModule;
+    return destroyUser;
   },
 };
 
-export default ModuleController;
+export default UserController;

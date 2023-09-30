@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("modules", {
+    await queryInterface.createTable("topics", {
       id: {
         type: Sequelize.UUID,
         allowNull: false,
@@ -17,12 +17,9 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: false,
       },
-      userId: {
-        type: Sequelize.UUID,
-        allowNull: true,
-      },
       code: { type: Sequelize.STRING, allowNull: false },
       name: { type: Sequelize.STRING, allowNull: false },
+      requirement: { type: Sequelize.STRING, allowNull: false },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -35,6 +32,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("modules");
+    await queryInterface.dropTable("topics");
   },
 };

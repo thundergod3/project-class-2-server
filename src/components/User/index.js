@@ -1,10 +1,10 @@
 import HttpError from "../../configs/error.js";
-import TeacherController from "./teacher.service.js";
+import UserController from "./user.service.js";
 
 // [GET]
-export async function getTeacherList(req, res, next) {
+export async function getUserList(req, res, next) {
   try {
-    const result = await TeacherController.getTeacherList(req.query);
+    const result = await UserController.getUserList(req.query);
 
     res.status(200).json(result);
   } catch (error) {
@@ -13,9 +13,9 @@ export async function getTeacherList(req, res, next) {
 }
 
 // [POST]
-export async function createTeacher(req, res, next) {
+export async function createUser(req, res, next) {
   try {
-    const result = await TeacherController.createTeacher(req.body);
+    const result = await UserController.createUser(req.body);
 
     res.status(200).json(result);
   } catch (error) {
@@ -24,12 +24,9 @@ export async function createTeacher(req, res, next) {
 }
 
 // [PUT]
-export async function updateTeacher(req, res, next) {
+export async function updateUser(req, res, next) {
   try {
-    const result = await TeacherController.updateTeacher(
-      req.params.id,
-      req.body
-    );
+    const result = await UserController.updateUser(req.params.id, req.body);
 
     res.status(200).json(result);
   } catch (error) {
@@ -38,9 +35,9 @@ export async function updateTeacher(req, res, next) {
 }
 
 // [DELETE]
-export async function deleteTeacher(req, res, next) {
+export async function deleteUser(req, res, next) {
   try {
-    const result = await TeacherController.deleteTeacher(req.params.id);
+    const result = await UserController.deleteUser(req.params.id);
 
     res.status(200).json(result);
   } catch (error) {

@@ -1,33 +1,27 @@
 import Joi from "joi";
 import { Validator } from "../../utils/validations.js";
 
-const ModuleValidation = {
-  createModule: (body) => {
+const DocumentValidation = {
+  createDocument: (body) => {
     const schema = Validator.object().keys({
       code: Joi.string().required(),
       name: Joi.string().required(),
-      facultyId: Joi.string().required(),
-      majorId: Joi.string().required(),
-      userId: Joi.string(),
     });
 
     return schema.validate(body);
   },
 
-  updateModule: (body) => {
+  updateDocument: (body) => {
     const schema = Validator.object().keys({
       id: Joi.string().required(),
       code: Joi.string().required(),
       name: Joi.string().required(),
-      facultyId: Joi.string().required(),
-      majorId: Joi.string().required(),
-      userId: Joi.string(),
     });
 
     return schema.validate(body);
   },
 
-  deleteModule: (body) => {
+  deleteDocument: (body) => {
     const schema = Validator.object().keys({
       id: Joi.string().required(),
     });
@@ -36,4 +30,4 @@ const ModuleValidation = {
   },
 };
 
-export default ModuleValidation;
+export default DocumentValidation;

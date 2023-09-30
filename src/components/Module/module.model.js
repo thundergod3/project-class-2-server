@@ -11,7 +11,7 @@ const ModuleModel = sequelize.define("modules", {
   },
   facultyId: { type: Sequelize.UUID, allowNull: false },
   majorId: { type: Sequelize.UUID, allowNull: false },
-  teacherId: { type: Sequelize.UUID, allowNull: true },
+  userId: { type: Sequelize.UUID, allowNull: true },
   code: { type: Sequelize.STRING, allowNull: false },
   name: { type: Sequelize.STRING, allowNull: false },
 });

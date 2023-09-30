@@ -1,12 +1,12 @@
 import pkg from "sequelize";
 
-import { FacultyModel, MajorModel, TeacherModel } from "../../models/index.js";
-import TeacherValidation from "./teacher.validation.js";
+import { FacultyModel, MajorModel, TopicModel } from "../../models/index.js";
+import TopicValidation from "./topic.validation.js";
 
 const { Op } = pkg;
 
-const TeacherController = {
-  getTeacherList: async (query) => {
+const TopicController = {
+  getTopicList: async (query) => {
     const { keyword = "", page = 0, limit = 10 } = query;
     const offset = page * limit;
     let filter = {};
@@ -24,7 +24,7 @@ const TeacherController = {
       };
     }
 
-    const data = await TeacherModel.findAndCountAll({
+    const data = await TopicModel.findAndCountAll({
       limit,
       offset,
       where: filter,
@@ -38,27 +38,28 @@ const TeacherController = {
     };
   },
 
-  createTeacher: async (body) => {
-    const validate = TeacherValidation.createTeacher(body);
+  createTopic: async (body) => {
+    const validate = TopicValidation.createTopic(body);
 
     if (validate.error) {
       throw new Error(validate.error.message);
     }
 
-    const { code, name, facultyId, majorId } = body;
+    const { code, name, requirement, facultyId, majorId } = body;
 
-    const newTeacher = await TeacherModel.create({
+    const newUser = await TopicModel.create({
       code,
       name,
+      requirement,
       facultyId,
       majorId,
     });
 
-    return newTeacher;
+    return newUser;
   },
 
-  updateTeacher: async (id, body) => {
-    const validate = TeacherValidation.updateTeacher({
+  updateTopic: async (id, body) => {
+    const validate = TopicValidation.updateTopic({
       id,
       ...body,
     });
@@ -67,26 +68,27 @@ const TeacherController = {
       throw new Error(validate.error.message);
     }
 
-    const { code, name, facultyId, majorId } = body;
+    const { code, name, requirement, facultyId, majorId } = body;
 
-    const findTeacher = await TeacherModel.findOne({
+    const findTopic = await TopicModel.findOne({
       where: {
         id,
       },
     });
 
-    await findTeacher.update({
+    await findTopic.update({
       code,
       name,
+      requirement,
       facultyId,
       majorId,
     });
 
-    return findTeacher;
+    return findTopic;
   },
 
-  deleteTeacher: async (id) => {
-    const validate = TeacherValidation.deleteTeacher({
+  deleteTopic: async (id) => {
+    const validate = TopicValidation.deleteTopic({
       id,
     });
 
@@ -94,14 +96,14 @@ const TeacherController = {
       throw new Error(validate.error.message);
     }
 
-    const destroyTeacher = await TeacherModel.destroy({
+    const destroyUser = await TopicModel.destroy({
       where: {
         id,
       },
     });
 
-    return destroyTeacher;
+    return destroyUser;
   },
 };
 
-export default TeacherController;
+export default TopicController;

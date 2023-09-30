@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 
 import sequelize from "../../configs/sequelize.js";
 
-const FacultyModel = sequelize.define("faculties", {
+const DocumentModel = sequelize.define("documents", {
   id: {
     type: Sequelize.UUID,
     allowNull: false,
@@ -13,4 +13,4 @@ const FacultyModel = sequelize.define("faculties", {
   name: { type: Sequelize.STRING, allowNull: false },
 });
 
-export default FacultyModel;
+export default DocumentModel;
