@@ -5,7 +5,7 @@ import DocumentValidation from "./document.validation.js";
 
 const { Op } = pkg;
 
-const DocumentController = {
+const DocumentService = {
   getDocumentList: async (query) => {
     const { keyword = "", page = 0, limit = 10 } = query;
     const offset = page * limit;
@@ -98,4 +98,4 @@ const DocumentController = {
   },
 };
 
-export default DocumentController;
+export default DocumentService;

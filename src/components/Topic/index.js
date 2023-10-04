@@ -1,10 +1,10 @@
 import HttpError from "../../configs/error.js";
-import TopicController from "./topic.service.js";
+import TopicService from "./topic.service.js";
 
 // [GET]
 export async function getTopicList(req, res, next) {
   try {
-    const result = await TopicController.getTopicList(req.query);
+    const result = await TopicService.getTopicList(req.query);
 
     res.status(200).json(result);
   } catch (error) {
@@ -15,7 +15,19 @@ export async function getTopicList(req, res, next) {
 // [POST]
 export async function createTopic(req, res, next) {
   try {
-    const result = await TopicController.createTopic(req.body);
+    const result = await TopicService.createTopic({
+      ...req.body,
+      userId: req.user.id,
+    });
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(new HttpError(error.message.status, error.message));
+  }
+}
+export async function proposalTopic(req, res, next) {
+  try {
+    const result = await TopicService.proposalTopic(req.body, req.user.id);
 
     res.status(200).json(result);
   } catch (error) {
@@ -26,7 +38,37 @@ export async function createTopic(req, res, next) {
 // [PUT]
 export async function updateTopic(req, res, next) {
   try {
-    const result = await TopicController.updateTopic(req.params.id, req.body);
+    const result = await TopicService.updateTopic(req.params.id, req.body);
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(new HttpError(error.message.status, error.message));
+  }
+}
+export async function registerTopic(req, res, next) {
+  try {
+    const result = await TopicService.registerTopic(req.params.id, req.user.id);
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(new HttpError(error.message.status, error.message));
+  }
+}
+export async function unRegisterTopic(req, res, next) {
+  try {
+    const result = await TopicService.unRegisterTopic(
+      req.params.id,
+      req.user.id
+    );
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(new HttpError(error.message.status, error.message));
+  }
+}
+export async function approveTopic(req, res, next) {
+  try {
+    const result = await TopicService.approveTopic(req.params.id, req.user.id);
 
     res.status(200).json(result);
   } catch (error) {
@@ -37,7 +79,7 @@ export async function updateTopic(req, res, next) {
 // [DELETE]
 export async function deleteTopic(req, res, next) {
   try {
-    const result = await TopicController.deleteTopic(req.params.id);
+    const result = await TopicService.deleteTopic(req.params.id);
 
     res.status(200).json(result);
   } catch (error) {

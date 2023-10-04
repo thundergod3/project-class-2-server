@@ -1,10 +1,10 @@
 import HttpError from "../../configs/error.js";
-import FacultyController from "./faculty.service.js";
+import FacultyService from "./faculty.service.js";
 
 // [GET]
 export async function getFacultyList(req, res, next) {
   try {
-    const result = await FacultyController.getFacultyList(req.query);
+    const result = await FacultyService.getFacultyList(req.query);
 
     res.status(200).json(result);
   } catch (error) {
@@ -15,7 +15,7 @@ export async function getFacultyList(req, res, next) {
 // [POST]
 export async function createFaculty(req, res, next) {
   try {
-    const result = await FacultyController.createFaculty(req.body);
+    const result = await FacultyService.createFaculty(req.body);
 
     res.status(200).json(result);
   } catch (error) {
@@ -26,10 +26,7 @@ export async function createFaculty(req, res, next) {
 // [PUT]
 export async function updateFaculty(req, res, next) {
   try {
-    const result = await FacultyController.updateFaculty(
-      req.params.id,
-      req.body
-    );
+    const result = await FacultyService.updateFaculty(req.params.id, req.body);
 
     res.status(200).json(result);
   } catch (error) {
@@ -40,7 +37,7 @@ export async function updateFaculty(req, res, next) {
 // [DELETE]
 export async function deleteFaculty(req, res, next) {
   try {
-    const result = await FacultyController.deleteFaculty(req.params.id);
+    const result = await FacultyService.deleteFaculty(req.params.id);
 
     res.status(200).json(result);
   } catch (error) {

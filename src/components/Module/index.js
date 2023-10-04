@@ -1,10 +1,10 @@
 import HttpError from "../../configs/error.js";
-import ModuleController from "./module.service.js";
+import ModuleService from "./module.service.js";
 
 // [GET]
 export async function getModuleList(req, res, next) {
   try {
-    const result = await ModuleController.getModuleList(req.query);
+    const result = await ModuleService.getModuleList(req.query);
 
     res.status(200).json(result);
   } catch (error) {
@@ -15,7 +15,7 @@ export async function getModuleList(req, res, next) {
 // [POST]
 export async function createModule(req, res, next) {
   try {
-    const result = await ModuleController.createModule(req.body);
+    const result = await ModuleService.createModule(req.body);
 
     res.status(200).json(result);
   } catch (error) {
@@ -26,7 +26,7 @@ export async function createModule(req, res, next) {
 // [PUT]
 export async function updateModule(req, res, next) {
   try {
-    const result = await ModuleController.updateModule(req.params.id, req.body);
+    const result = await ModuleService.updateModule(req.params.id, req.body);
 
     res.status(200).json(result);
   } catch (error) {
@@ -37,7 +37,7 @@ export async function updateModule(req, res, next) {
 // [DELETE]
 export async function deleteModule(req, res, next) {
   try {
-    const result = await ModuleController.deleteModule(req.params.id);
+    const result = await ModuleService.deleteModule(req.params.id);
 
     res.status(200).json(result);
   } catch (error) {

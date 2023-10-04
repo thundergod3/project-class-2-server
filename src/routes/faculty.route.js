@@ -7,19 +7,20 @@ import {
   getFacultyList,
   updateFaculty,
 } from "../components/Faculty/index.js";
+import { authentication } from "../middlewares/authentications.js";
 
 const faculty = Router();
 
 // [GET]
-faculty.get("/", asyncHandler(getFacultyList));
+faculty.get("/", authentication, asyncHandler(getFacultyList));
 
 // [POST]
-faculty.post("/create", asyncHandler(createFaculty));
+faculty.post("/create", authentication, asyncHandler(createFaculty));
 
 // [PUT]
-faculty.put("/update/:id", asyncHandler(updateFaculty));
+faculty.put("/update/:id", authentication, asyncHandler(updateFaculty));
 
 // [DELETE]
-faculty.delete("/delete/:id", asyncHandler(deleteFaculty));
+faculty.delete("/delete/:id", authentication, asyncHandler(deleteFaculty));
 
 export default faculty;

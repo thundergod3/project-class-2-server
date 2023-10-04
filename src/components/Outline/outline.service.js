@@ -1,13 +1,13 @@
 import pkg from "sequelize";
 
-import { FacultyModel } from "../../models/index.js";
-import FacultyValidation from "./faculty.validation.js";
+import { OutlineModel } from "../../models/index.js";
+import OutlineValidation from "./outline.validation.js";
 
 const { Op } = pkg;
 
-const FacultyService = {
-  getFacultyList: async (query) => {
-    const { keyword, page = 0, limit = 10 } = query;
+const OutlineService = {
+  getOutlineList: async (query) => {
+    const { keyword = "", page = 0, limit = 10 } = query;
     const offset = page * limit;
     let filter = {};
 
@@ -24,7 +24,7 @@ const FacultyService = {
       };
     }
 
-    const data = await FacultyModel.findAndCountAll({
+    const data = await OutlineModel.findAndCountAll({
       limit,
       offset,
       where: filter,
@@ -36,8 +36,8 @@ const FacultyService = {
     };
   },
 
-  createFaculty: async (body) => {
-    const validate = FacultyValidation.createFaculty(body);
+  createOutline: async (body) => {
+    const validate = OutlineValidation.createOutline(body);
 
     if (validate.error) {
       throw new Error(validate.error.message);
@@ -45,16 +45,16 @@ const FacultyService = {
 
     const { code, name } = body;
 
-    const newFaculty = await FacultyModel.create({
+    const newUser = await OutlineModel.create({
       code,
       name,
     });
 
-    return newFaculty;
+    return newUser;
   },
 
-  updateFaculty: async (id, body) => {
-    const validate = FacultyValidation.updateFaculty({
+  updateOutline: async (id, body) => {
+    const validate = OutlineValidation.updateOutline({
       id,
       ...body,
     });
@@ -65,22 +65,22 @@ const FacultyService = {
 
     const { code, name } = body;
 
-    const findFaculty = await FacultyModel.findOne({
+    const findOutline = await OutlineModel.findOne({
       where: {
         id,
       },
     });
 
-    await findFaculty.update({
+    await findOutline.update({
       code,
       name,
     });
 
-    return findFaculty;
+    return findOutline;
   },
 
-  deleteFaculty: async (id) => {
-    const validate = FacultyValidation.deleteFaculty({
+  deleteOutline: async (id) => {
+    const validate = OutlineValidation.deleteOutline({
       id,
     });
 
@@ -88,14 +88,14 @@ const FacultyService = {
       throw new Error(validate.error.message);
     }
 
-    const destroyFaculty = await FacultyModel.destroy({
+    const destroyUser = await OutlineModel.destroy({
       where: {
         id,
       },
     });
 
-    return destroyFaculty;
+    return destroyUser;
   },
 };
 
-export default FacultyService;
+export default OutlineService;

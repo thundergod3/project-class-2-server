@@ -6,7 +6,7 @@ import FacultyModel from "../Faculty/faculty.model.js";
 
 const { Op } = pkg;
 
-const MajorController = {
+const MajorService = {
   getMajorList: async (query) => {
     const { keyword = "", page = 0, limit = 10 } = query;
     const offset = page * limit;
@@ -103,4 +103,4 @@ const MajorController = {
   },
 };
 
-export default MajorController;
+export default MajorService;

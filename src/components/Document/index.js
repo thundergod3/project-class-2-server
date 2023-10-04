@@ -1,10 +1,10 @@
 import HttpError from "../../configs/error.js";
-import DocumentController from "./document.service.js";
+import DocumentService from "./document.service.js";
 
 // [GET]
 export async function getDocumentList(req, res, next) {
   try {
-    const result = await DocumentController.getDocumentList(req.query);
+    const result = await DocumentService.getDocumentList(req.query);
 
     res.status(200).json(result);
   } catch (error) {
@@ -15,7 +15,7 @@ export async function getDocumentList(req, res, next) {
 // [POST]
 export async function createDocument(req, res, next) {
   try {
-    const result = await DocumentController.createDocument(req.body);
+    const result = await DocumentService.createDocument(req.body);
 
     res.status(200).json(result);
   } catch (error) {
@@ -26,7 +26,7 @@ export async function createDocument(req, res, next) {
 // [PUT]
 export async function updateDocument(req, res, next) {
   try {
-    const result = await DocumentController.updateDocument(
+    const result = await DocumentService.updateDocument(
       req.params.id,
       req.body
     );
@@ -40,7 +40,7 @@ export async function updateDocument(req, res, next) {
 // [DELETE]
 export async function deleteDocument(req, res, next) {
   try {
-    const result = await DocumentController.deleteDocument(req.params.id);
+    const result = await DocumentService.deleteDocument(req.params.id);
 
     res.status(200).json(result);
   } catch (error) {

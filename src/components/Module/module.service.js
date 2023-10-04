@@ -5,7 +5,7 @@ import ModuleValidation from "./module.validation.js";
 
 const { Op } = pkg;
 
-const ModuleController = {
+const ModuleService = {
   getModuleList: async (query) => {
     const { keyword = "", page = 0, limit = 10 } = query;
     const offset = page * limit;
@@ -106,4 +106,4 @@ const ModuleController = {
   },
 };
 
-export default ModuleController;
+export default ModuleService;

@@ -1,10 +1,10 @@
 import HttpError from "../../configs/error.js";
-import UserController from "./user.service.js";
+import UserService from "./user.service.js";
 
 // [GET]
 export async function getUserList(req, res, next) {
   try {
-    const result = await UserController.getUserList(req.query);
+    const result = await UserService.getUserList(req.query);
 
     res.status(200).json(result);
   } catch (error) {
@@ -15,7 +15,7 @@ export async function getUserList(req, res, next) {
 // [POST]
 export async function createUser(req, res, next) {
   try {
-    const result = await UserController.createUser(req.body);
+    const result = await UserService.createUser(req.body);
 
     res.status(200).json(result);
   } catch (error) {
@@ -26,7 +26,7 @@ export async function createUser(req, res, next) {
 // [PUT]
 export async function updateUser(req, res, next) {
   try {
-    const result = await UserController.updateUser(req.params.id, req.body);
+    const result = await UserService.updateUser(req.params.id, req.body);
 
     res.status(200).json(result);
   } catch (error) {
@@ -37,7 +37,7 @@ export async function updateUser(req, res, next) {
 // [DELETE]
 export async function deleteUser(req, res, next) {
   try {
-    const result = await UserController.deleteUser(req.params.id);
+    const result = await UserService.deleteUser(req.params.id);
 
     res.status(200).json(result);
   } catch (error) {

@@ -7,19 +7,20 @@ import {
   getMajorList,
   updateMajor,
 } from "../components/Major/index.js";
+import { authentication } from "../middlewares/authentications.js";
 
 const major = Router();
 
 // [GET]
-major.get("/", asyncHandler(getMajorList));
+major.get("/", authentication, asyncHandler(getMajorList));
 
 // [POST]
-major.post("/create", asyncHandler(createMajor));
+major.post("/create", authentication, asyncHandler(createMajor));
 
 // [PUT]
-major.put("/update/:id", asyncHandler(updateMajor));
+major.put("/update/:id", authentication, asyncHandler(updateMajor));
 
 // [DELETE]
-major.delete("/delete/:id", asyncHandler(deleteMajor));
+major.delete("/delete/:id", authentication, asyncHandler(deleteMajor));
 
 export default major;

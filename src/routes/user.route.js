@@ -7,19 +7,38 @@ import {
   updateUser,
   deleteUser,
 } from "../components/User/index.js";
+import {
+  adminAuthentication,
+  authentication,
+} from "../middlewares/authentications.js";
 
 const user = Router();
 
 // [GET]
-user.get("/", asyncHandler(getUserList));
+user.get("/", authentication, adminAuthentication, asyncHandler(getUserList));
 
 // [POST]
-user.post("/create", asyncHandler(createUser));
+user.post(
+  "/create",
+  authentication,
+  adminAuthentication,
+  asyncHandler(createUser)
+);
 
 // [PUT]
-user.put("/update/:id", asyncHandler(updateUser));
+user.put(
+  "/update/:id",
+  authentication,
+  adminAuthentication,
+  asyncHandler(updateUser)
+);
 
 // [DELETE]
-user.delete("/delete/:id", asyncHandler(deleteUser));
+user.delete(
+  "/delete/:id",
+  authentication,
+  adminAuthentication,
+  asyncHandler(deleteUser)
+);
 
 export default user;

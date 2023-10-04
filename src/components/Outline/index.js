@@ -1,10 +1,10 @@
 import HttpError from "../../configs/error.js";
-import MajorService from "./major.service.js";
+import OutlineService from "./outline.service.js";
 
 // [GET]
-export async function getMajorList(req, res, next) {
+export async function getOutlineList(req, res, next) {
   try {
-    const result = await MajorService.getMajorList(req.query);
+    const result = await OutlineService.getOutlineList(req.query);
 
     res.status(200).json(result);
   } catch (error) {
@@ -13,9 +13,9 @@ export async function getMajorList(req, res, next) {
 }
 
 // [POST]
-export async function createMajor(req, res, next) {
+export async function createOutline(req, res, next) {
   try {
-    const result = await MajorService.createMajor(req.body);
+    const result = await OutlineService.createOutline(req.body);
 
     res.status(200).json(result);
   } catch (error) {
@@ -24,9 +24,9 @@ export async function createMajor(req, res, next) {
 }
 
 // [PUT]
-export async function updateMajor(req, res, next) {
+export async function updateOutline(req, res, next) {
   try {
-    const result = await MajorService.updateMajor(req.params.id, req.body);
+    const result = await OutlineService.updateOutline(req.params.id, req.body);
 
     res.status(200).json(result);
   } catch (error) {
@@ -35,9 +35,9 @@ export async function updateMajor(req, res, next) {
 }
 
 // [DELETE]
-export async function deleteMajor(req, res, next) {
+export async function deleteOutline(req, res, next) {
   try {
-    const result = await MajorService.deleteMajor(req.params.id);
+    const result = await OutlineService.deleteOutline(req.params.id);
 
     res.status(200).json(result);
   } catch (error) {

@@ -7,19 +7,43 @@ import {
   updateDocument,
   deleteDocument,
 } from "../components/Document/index.js";
+import {
+  adminAuthentication,
+  authentication,
+} from "../middlewares/authentications.js";
 
 const document = Router();
 
 // [GET]
-document.get("/", asyncHandler(getDocumentList));
+document.get(
+  "/",
+  authentication,
+  adminAuthentication,
+  asyncHandler(getDocumentList)
+);
 
 // [POST]
-document.post("/create", asyncHandler(createDocument));
+document.post(
+  "/create",
+  authentication,
+  adminAuthentication,
+  asyncHandler(createDocument)
+);
 
 // [PUT]
-document.put("/update/:id", asyncHandler(updateDocument));
+document.put(
+  "/update/:id",
+  authentication,
+  adminAuthentication,
+  asyncHandler(updateDocument)
+);
 
 // [DELETE]
-document.delete("/delete/:id", asyncHandler(deleteDocument));
+document.delete(
+  "/delete/:id",
+  authentication,
+  adminAuthentication,
+  asyncHandler(deleteDocument)
+);
 
 export default document;

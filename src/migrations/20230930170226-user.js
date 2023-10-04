@@ -11,15 +11,16 @@ module.exports = {
       },
       facultyId: {
         type: Sequelize.UUID,
-        allowNull: false,
       },
       majorId: {
         type: Sequelize.UUID,
-        allowNull: false,
       },
       code: { type: Sequelize.STRING, allowNull: false },
       name: { type: Sequelize.STRING, allowNull: false },
       role: { type: Sequelize.STRING, allowNull: false },
+      username: { type: Sequelize.STRING, allowNull: false },
+      password: { type: Sequelize.STRING, allowNull: false },
+      topicId: { type: Sequelize.UUID },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

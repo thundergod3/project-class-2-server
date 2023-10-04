@@ -9,6 +9,7 @@ const TopicValidation = {
       requirement: Joi.string().required(),
       facultyId: Joi.string().required(),
       majorId: Joi.string().required(),
+      userId: Joi.string().required(),
     });
 
     return schema.validate(body);
@@ -28,6 +29,41 @@ const TopicValidation = {
   },
 
   deleteTopic: (body) => {
+    const schema = Validator.object().keys({
+      id: Joi.string().required(),
+    });
+
+    return schema.validate(body);
+  },
+
+  registerTopic: (body) => {
+    const schema = Validator.object().keys({
+      id: Joi.string().required(),
+    });
+
+    return schema.validate(body);
+  },
+
+  unRegisterTopic: (body) => {
+    const schema = Validator.object().keys({
+      id: Joi.string().required(),
+    });
+
+    return schema.validate(body);
+  },
+
+  proposalTopic: (body) => {
+    const schema = Validator.object().keys({
+      code: Joi.string().required(),
+      name: Joi.string().required(),
+      reason: Joi.string().required(),
+      majorId: Joi.string().required(),
+    });
+
+    return schema.validate(body);
+  },
+
+  approveTopic: (body) => {
     const schema = Validator.object().keys({
       id: Joi.string().required(),
     });

@@ -6,20 +6,68 @@ import {
   createTopic,
   updateTopic,
   deleteTopic,
+  registerTopic,
+  unRegisterTopic,
+  proposalTopic,
+  approveTopic,
 } from "../components/Topic/index.js";
+import {
+  authentication,
+  studentAuthentication,
+  teacherAuthentication,
+} from "../middlewares/authentications.js";
 
 const topic = Router();
 
 // [GET]
-topic.get("/", asyncHandler(getTopicList));
+topic.get("/", authentication, asyncHandler(getTopicList));
 
 // [POST]
-topic.post("/create", asyncHandler(createTopic));
+topic.post(
+  "/create",
+  authentication,
+  teacherAuthentication,
+  asyncHandler(createTopic)
+);
+topic.post(
+  "/proposal",
+  authentication,
+  studentAuthentication,
+  asyncHandler(proposalTopic)
+);
 
 // [PUT]
-topic.put("/update/:id", asyncHandler(updateTopic));
+topic.put(
+  "/update/:id",
+  authentication,
+  teacherAuthentication,
+  asyncHandler(updateTopic)
+);
+topic.put(
+  "/register/:id",
+  authentication,
+  studentAuthentication,
+  asyncHandler(registerTopic)
+);
+topic.put(
+  "/un-register/:id",
+  authentication,
+  studentAuthentication,
+  asyncHandler(unRegisterTopic)
+);
+topic.put(
+  "/approve/:id",
+  authentication,
+  teacherAuthentication,
+  asyncHandler(approveTopic)
+);
 
 // [DELETE]
-topic.delete("/delete/:id", asyncHandler(deleteTopic));
+topic.delete(
+  "/delete/:id",
+  authentication,
+  teacherAuthentication,
+  asyncHandler(deleteTopic)
+);
 
 export default topic;
