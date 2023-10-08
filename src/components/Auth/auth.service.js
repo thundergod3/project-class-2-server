@@ -1,6 +1,11 @@
 import validatePassword from "../../utils/validatePassword.js";
 import generateToken from "../../utils/generateToken.js";
-import { UserModel, ResetTokenModel } from "../../models/index.js";
+import {
+  UserModel,
+  ResetTokenModel,
+  FacultyModel,
+  MajorModel,
+} from "../../models/index.js";
 
 const AuthService = {
   myProfile: async (userId) => {
@@ -8,6 +13,7 @@ const AuthService = {
       where: {
         id: userId,
       },
+      include: [{ model: FacultyModel }, { model: MajorModel }],
     });
 
     delete user?.password;
