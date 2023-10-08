@@ -58,17 +58,8 @@ export async function unRegisterTopic(req, res, next) {
   try {
     const result = await TopicService.unRegisterTopic(
       req.params.id,
-      req.user.id
+      req.body.userId || req.user.id
     );
-
-    res.status(200).json(result);
-  } catch (error) {
-    next(new HttpError(error.message.status, error.message));
-  }
-}
-export async function approveTopic(req, res, next) {
-  try {
-    const result = await TopicService.approveTopic(req.params.id, req.user.id);
 
     res.status(200).json(result);
   } catch (error) {

@@ -2,29 +2,22 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("topics", {
+    await queryInterface.createTable("theses", {
       id: {
         type: Sequelize.UUID,
         allowNull: false,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
       },
-      facultyId: {
-        type: Sequelize.UUID,
-      },
-      majorId: {
-        type: Sequelize.UUID,
-        allowNull: false,
-      },
       userId: {
         type: Sequelize.UUID,
         allowNull: false,
       },
-      code: { type: Sequelize.STRING, allowNull: false },
-      name: { type: Sequelize.STRING, allowNull: false },
-      requirement: { type: Sequelize.STRING },
       status: { type: Sequelize.STRING },
-      reason: { type: Sequelize.STRING },
+      score: { type: Sequelize.FLOAT },
+      result: { type: Sequelize.STRING },
+      teacher: { type: Sequelize.JSONB },
+      council: { type: Sequelize.JSONB },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -37,6 +30,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("topics");
+    await queryInterface.dropTable("theses");
   },
 };

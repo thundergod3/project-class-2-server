@@ -62,14 +62,6 @@ const TopicValidation = {
 
     return schema.validate(body);
   },
-
-  approveTopic: (body) => {
-    const schema = Validator.object().keys({
-      id: Joi.string().required(),
-    });
-
-    return schema.validate(body);
-  },
 };
 
 export default TopicValidation;

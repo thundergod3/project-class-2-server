@@ -7,6 +7,7 @@ import {
   UserModel,
 } from "../../models/index.js";
 import TopicValidation from "./topic.validation.js";
+import UserService from "../User/user.service.js";
 
 const { Op } = pkg;
 
@@ -79,7 +80,7 @@ const TopicService = {
 
     const { code, name, requirement, facultyId, majorId } = body;
 
-    const newUser = await TopicModel.create({
+    const newTopic = await TopicModel.create({
       code,
       name,
       requirement,
@@ -88,7 +89,7 @@ const TopicService = {
       userId: body?.userId,
     });
 
-    return newUser;
+    return newTopic;
   },
 
   updateTopic: async (id, body) => {
@@ -129,13 +130,13 @@ const TopicService = {
       throw new Error(validate.error.message);
     }
 
-    const destroyUser = await TopicModel.destroy({
+    const destroyTopic = await TopicModel.destroy({
       where: {
         id,
       },
     });
 
-    return destroyUser;
+    return destroyTopic;
   },
 
   registerTopic: async (id, userId) => {
@@ -152,17 +153,13 @@ const TopicService = {
         id,
       },
     });
-    const user = await UserModel.findOne({
-      where: {
-        id: userId,
-      },
-    });
 
     await findTopic.update({
       registerId: userId,
     });
-    await user.update({
+    await UserService.updateUser(userId, {
       topicId: id,
+      topic: findTopic,
     });
 
     return findTopic;
@@ -182,16 +179,11 @@ const TopicService = {
         id,
       },
     });
-    const user = await UserModel.findOne({
-      where: {
-        id: userId,
-      },
-    });
 
     await findTopic.update({
       registerId: null,
     });
-    await user.update({
+    await UserService.updateUser(userId, {
       topicId: null,
     });
 
@@ -219,7 +211,7 @@ const TopicService = {
       };
     }
 
-    const newUser = await TopicModel.create({
+    const newTopic = await TopicModel.create({
       code,
       name,
       reason,
@@ -229,29 +221,7 @@ const TopicService = {
       status: "draft",
     });
 
-    return newUser;
-  },
-
-  approveTopic: async (id) => {
-    const validate = TopicValidation.approveTopic({
-      id,
-    });
-
-    if (validate.error) {
-      throw new Error(validate.error.message);
-    }
-
-    const findTopic = await TopicModel.findOne({
-      where: {
-        id,
-      },
-    });
-
-    await findTopic.update({
-      status: null,
-    });
-
-    return findTopic;
+    return newTopic;
   },
 };
 

@@ -13,11 +13,15 @@ const UserModel = sequelize.define("users", {
   facultyId: { type: Sequelize.UUID },
   majorId: { type: Sequelize.UUID },
   topicId: { type: Sequelize.UUID },
+  topic: { type: Sequelize.JSONB },
+  thesisId: { type: Sequelize.UUID },
   code: { type: Sequelize.STRING, allowNull: false },
   name: { type: Sequelize.STRING, allowNull: false },
   role: { type: Sequelize.STRING, allowNull: false },
   username: { type: Sequelize.STRING, allowNull: false },
   password: { type: Sequelize.STRING, allowNull: false },
+  fullName: { type: Sequelize.STRING },
+  dob: { type: Sequelize.DATE },
 });
 
 UserModel.beforeCreate((user) => {

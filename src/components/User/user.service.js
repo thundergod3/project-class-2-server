@@ -73,7 +73,18 @@ const UserService = {
       throw new Error(validate.error.message);
     }
 
-    const { username, code, name, facultyId, majorId } = body;
+    const {
+      fullName,
+      username,
+      code,
+      name,
+      facultyId,
+      majorId,
+      topicId,
+      thesisId,
+      topic,
+      dob,
+    } = body;
 
     const findUser = await UserModel.findOne({
       where: {
@@ -87,6 +98,11 @@ const UserService = {
       name,
       facultyId,
       majorId,
+      fullName,
+      topicId,
+      thesisId,
+      topic,
+      dob,
     });
 
     return findUser;

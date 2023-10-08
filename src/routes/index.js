@@ -6,6 +6,8 @@ import topicRoute from "./topic.route.js";
 import documentRoute from "./document.route.js";
 import outlineRoute from "./outline.route.js";
 import authRoute from "./auth.route.js";
+import thesisRoute from "./thesis.route.js";
+import reportThesis from "./reportThesis.js";
 
 const routes = (express) => {
   express.use("/faculties", facultyRoute);
@@ -16,6 +18,8 @@ const routes = (express) => {
   express.use("/documents", documentRoute);
   express.use("/outlines", outlineRoute);
   express.use("/auth", authRoute);
+  express.use("/theses", thesisRoute);
+  express.use("/report-theses", reportThesis);
 };
 
 export default routes;

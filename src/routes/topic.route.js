@@ -9,7 +9,6 @@ import {
   registerTopic,
   unRegisterTopic,
   proposalTopic,
-  approveTopic,
 } from "../components/Topic/index.js";
 import {
   authentication,
@@ -54,12 +53,6 @@ topic.put(
   authentication,
   studentAuthentication,
   asyncHandler(unRegisterTopic)
-);
-topic.put(
-  "/approve/:id",
-  authentication,
-  teacherAuthentication,
-  asyncHandler(approveTopic)
 );
 
 // [DELETE]
