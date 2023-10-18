@@ -74,7 +74,6 @@ export async function assignReviewTeacher(req, res, next) {
       req.params.id,
       req.body
     );
-
     res.status(200).json(result);
   } catch (error) {
     next(new HttpError(error.message.status, error.message));

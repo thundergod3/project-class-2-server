@@ -45,6 +45,16 @@ const FacultyService = {
 
     const { code, name } = body;
 
+    const findFaculty = await FacultyModel.findOne({
+      where: {
+        code,
+      },
+    });
+
+    if (findFaculty) {
+      throw new Error("Faculty code is exited. Please try again");
+    }
+
     const newFaculty = await FacultyModel.create({
       code,
       name,

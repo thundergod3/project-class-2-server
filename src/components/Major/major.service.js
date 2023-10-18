@@ -48,6 +48,16 @@ const MajorService = {
 
     const { code, name, facultyId } = body;
 
+    const findMajor = await MajorModel.findOne({
+      where: {
+        code,
+      },
+    });
+
+    if (findMajor) {
+      throw new Error("Major code is exited. Please try again");
+    }
+
     const newMajor = await MajorModel.create({
       code,
       name,

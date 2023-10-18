@@ -7,8 +7,9 @@
   "author": "Next3Labs",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon --unhandled-rejections=strict --experimental-json-modules ./src/index.js",
-    "migrate": "npx sequelize-cli db:migrate"
+    "start": "NODE_ENV=development nodemon --unhandled-rejections=strict --experimental-json-modules ./src/index.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "dev": "yarn migrate && yarn start"
   },
   "engines": {
     "node": ">=16.0.0"
