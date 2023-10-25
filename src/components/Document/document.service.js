@@ -43,11 +43,12 @@ const DocumentService = {
       throw new Error(validate.error.message);
     }
 
-    const { code, name } = body;
+    const { code, name, file } = body;
 
     const newUser = await DocumentModel.create({
       code,
       name,
+      file,
     });
 
     return newUser;
@@ -63,7 +64,7 @@ const DocumentService = {
       throw new Error(validate.error.message);
     }
 
-    const { code, name } = body;
+    const { code, name, file } = body;
 
     const findDocument = await DocumentModel.findOne({
       where: {
@@ -74,6 +75,7 @@ const DocumentService = {
     await findDocument.update({
       code,
       name,
+      file,
     });
 
     return findDocument;

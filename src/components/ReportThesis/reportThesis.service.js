@@ -51,7 +51,7 @@ const ReportThesisService = {
       throw new Error(validate.error.message);
     }
 
-    const { name, userCode } = body;
+    const { name, userCode, file } = body;
 
     const user = await UserModel.findOne({
       where: {
@@ -66,6 +66,7 @@ const ReportThesisService = {
     const newReportThesis = await ReportThesisModel.create({
       name,
       userId: user?.id,
+      file,
     });
 
     return newReportThesis;
@@ -81,7 +82,7 @@ const ReportThesisService = {
       throw new Error(validate.error.message);
     }
 
-    const { name } = body;
+    const { name, file } = body;
 
     const findReportThesis = await ReportThesisModel.findOne({
       where: {
@@ -91,6 +92,7 @@ const ReportThesisService = {
 
     await findReportThesis.update({
       name,
+      file,
     });
 
     return findReportThesis;

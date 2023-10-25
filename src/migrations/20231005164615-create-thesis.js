@@ -18,6 +18,7 @@ module.exports = {
       result: { type: Sequelize.STRING },
       teacher: { type: Sequelize.JSONB },
       council: { type: Sequelize.JSONB },
+      file: { type: Sequelize.JSONB },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

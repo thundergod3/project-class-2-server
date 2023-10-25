@@ -43,11 +43,12 @@ const OutlineService = {
       throw new Error(validate.error.message);
     }
 
-    const { code, name } = body;
+    const { code, name, file } = body;
 
     const newUser = await OutlineModel.create({
       code,
       name,
+      file,
     });
 
     return newUser;
@@ -63,7 +64,7 @@ const OutlineService = {
       throw new Error(validate.error.message);
     }
 
-    const { code, name } = body;
+    const { code, name, file } = body;
 
     const findOutline = await OutlineModel.findOne({
       where: {
@@ -74,6 +75,7 @@ const OutlineService = {
     await findOutline.update({
       code,
       name,
+      file,
     });
 
     return findOutline;

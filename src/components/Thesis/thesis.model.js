@@ -15,6 +15,7 @@ const ThesisModel = sequelize.define("theses", {
   result: { type: Sequelize.STRING },
   teacher: { type: Sequelize.JSONB },
   council: { type: Sequelize.JSONB },
+  file: { type: Sequelize.STRING },
 });
 
 export default ThesisModel;
