@@ -10,6 +10,7 @@ const TopicValidation = {
       facultyId: Joi.string().required(),
       majorId: Joi.string().required(),
       userId: Joi.string().required(),
+      schoolYearId: Joi.string().required(),
     });
 
     return schema.validate(body);
@@ -23,6 +24,7 @@ const TopicValidation = {
       requirement: Joi.string().required(),
       facultyId: Joi.string().required(),
       majorId: Joi.string().required(),
+      schoolYearId: Joi.string().required(),
     });
 
     return schema.validate(body);

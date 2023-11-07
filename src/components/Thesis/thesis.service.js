@@ -94,11 +94,12 @@ const ThesisService = {
       throw new Error(validate.error.message);
     }
 
-    const { userId, fullName, dob, file, status } = body;
+    const { userId, fullName, dob, file, status, schoolYearId } = body;
 
     const newThesis = await ThesisModel.create({
       userId,
       status,
+      schoolYearId,
     });
 
     await UserService.updateUser(body?.userId, {
@@ -121,7 +122,7 @@ const ThesisService = {
       throw new Error(validate.error.message);
     }
 
-    const { score, result, file } = body;
+    const { score, result, file, schoolYearId } = body;
 
     const findThesis = await ThesisModel.findOne({
       where: {
@@ -133,6 +134,7 @@ const ThesisService = {
       score,
       result,
       file,
+      schoolYearId,
     });
 
     await UserService.updateUser(body?.userId, body);

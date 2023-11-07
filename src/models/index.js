@@ -8,6 +8,8 @@ import OutlineModel from "../components/Outline/outline.model.js";
 import ResetTokenModel from "../components/ResetToken/resetToken.model.js";
 import ThesisModel from "../components/Thesis/thesis.model.js";
 import ReportThesisModel from "../components/ReportThesis/reportThesis.model.js";
+import SchoolYearModel from "../components/SchoolYear/schoolYear.model.js";
+import SemesterModel from "../components/Semester/semester.model.js";
 
 FacultyModel.hasMany(MajorModel, { foreignKey: "facultyId" });
 FacultyModel.hasMany(UserModel, { foreignKey: "facultyId" });
@@ -19,6 +21,9 @@ MajorModel.hasMany(TopicModel, { foreignKey: "majorId" });
 UserModel.hasMany(TopicModel, { foreignKey: "userId" });
 ThesisModel.hasOne(UserModel, { foreignKey: "thesisId" });
 UserModel.hasOne(ReportThesisModel, { foreignKey: "userId" });
+SchoolYearModel.hasOne(SemesterModel, { foreignKey: "schoolYearId" });
+SchoolYearModel.hasMany(ThesisModel, { foreignKey: "schoolYearId" });
+SchoolYearModel.hasMany(TopicModel, { foreignKey: "schoolYearId" });
 
 MajorModel.belongsTo(FacultyModel);
 UserModel.belongsTo(FacultyModel);
@@ -29,7 +34,10 @@ ModuleModel.belongsTo(MajorModel);
 TopicModel.belongsTo(FacultyModel);
 TopicModel.belongsTo(MajorModel);
 TopicModel.belongsTo(UserModel);
+TopicModel.belongsTo(SchoolYearModel);
 ReportThesisModel.belongsTo(UserModel);
+SemesterModel.belongsTo(SchoolYearModel);
+ThesisModel.belongsTo(SchoolYearModel);
 
 export {
   FacultyModel,
@@ -42,4 +50,6 @@ export {
   ResetTokenModel,
   ThesisModel,
   ReportThesisModel,
+  SchoolYearModel,
+  SemesterModel,
 };

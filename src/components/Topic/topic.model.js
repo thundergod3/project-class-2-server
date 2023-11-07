@@ -12,6 +12,7 @@ const TopicModel = sequelize.define("topics", {
   facultyId: { type: Sequelize.UUID },
   majorId: { type: Sequelize.UUID, allowNull: false },
   userId: { type: Sequelize.UUID, allowNull: false },
+  schoolYearId: { type: Sequelize.UUID },
   registerId: { type: Sequelize.UUID },
   status: { type: Sequelize.STRING },
   reason: { type: Sequelize.STRING },

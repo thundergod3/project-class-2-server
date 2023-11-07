@@ -78,7 +78,7 @@ const TopicService = {
       throw new Error(validate.error.message);
     }
 
-    const { code, name, requirement, facultyId, majorId } = body;
+    const { code, name, requirement, facultyId, majorId, schoolYearId } = body;
 
     const newTopic = await TopicModel.create({
       code,
@@ -87,6 +87,7 @@ const TopicService = {
       facultyId,
       majorId,
       userId: body?.userId,
+      schoolYearId,
     });
 
     return newTopic;
@@ -102,7 +103,7 @@ const TopicService = {
       throw new Error(validate.error.message);
     }
 
-    const { code, name, requirement, facultyId, majorId } = body;
+    const { code, name, requirement, facultyId, majorId, schoolYearId } = body;
 
     const findTopic = await TopicModel.findOne({
       where: {
@@ -116,6 +117,7 @@ const TopicService = {
       requirement,
       facultyId,
       majorId,
+      schoolYearId,
     });
 
     return findTopic;

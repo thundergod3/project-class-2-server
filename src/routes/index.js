@@ -9,6 +9,8 @@ import authRoute from "./auth.route.js";
 import thesisRoute from "./thesis.route.js";
 import reportThesis from "./reportThesis.js";
 import uploadFileRoute from "./uploadFile.route.js";
+import schoolYearRoute from "./schoolYear.route.js";
+import semesterRoute from "./semester.route.js";
 
 const routes = (express) => {
   express.use("/faculties", facultyRoute);
@@ -22,6 +24,8 @@ const routes = (express) => {
   express.use("/theses", thesisRoute);
   express.use("/report-theses", reportThesis);
   express.use("/upload", uploadFileRoute);
+  express.use("/schoolYears", schoolYearRoute);
+  express.use("/semesters", semesterRoute);
 };
 
 export default routes;

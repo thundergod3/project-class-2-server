@@ -10,6 +10,7 @@ const ThesisModel = sequelize.define("theses", {
     primaryKey: true,
   },
   userId: { type: Sequelize.UUID, allowNull: false },
+  schoolYearId: { type: Sequelize.UUID },
   status: { type: Sequelize.STRING },
   score: { type: Sequelize.FLOAT },
   result: { type: Sequelize.STRING },

@@ -1,12 +1,12 @@
 import pkg from "sequelize";
 
-import { DocumentModel } from "../../models/index.js";
-import DocumentValidation from "./document.validation.js";
+import { SchoolYearModel } from "../../models/index.js";
+import SchoolYearValidation from "../SchoolYear/schoolYear.validation.js";
 
 const { Op } = pkg;
 
-const DocumentService = {
-  getDocumentList: async (query) => {
+const SchoolYearService = {
+  getSchoolYearList: async (query) => {
     const { keyword = "", page = 0, limit = 10 } = query;
     const offset = page * limit;
     let filter = {};
@@ -24,7 +24,7 @@ const DocumentService = {
       };
     }
 
-    const data = await DocumentModel.findAndCountAll({
+    const data = await SchoolYearModel.findAndCountAll({
       limit,
       offset,
       where: filter,
@@ -36,26 +36,25 @@ const DocumentService = {
     };
   },
 
-  createDocument: async (body) => {
-    const validate = DocumentValidation.createDocument(body);
+  createSchoolYear: async (body) => {
+    const validate = SchoolYearValidation.createSchoolYear(body);
 
     if (validate.error) {
       throw new Error(validate.error.message);
     }
 
-    const { code, name, file } = body;
+    const { code, name } = body;
 
-    const newDocument = await DocumentModel.create({
+    const newSchoolYear = await SchoolYearModel.create({
       code,
       name,
-      file,
     });
 
-    return newDocument;
+    return newSchoolYear;
   },
 
-  updateDocument: async (id, body) => {
-    const validate = DocumentValidation.updateDocument({
+  updateSchoolYear: async (id, body) => {
+    const validate = SchoolYearValidation.updateSchoolYear({
       id,
       ...body,
     });
@@ -64,25 +63,24 @@ const DocumentService = {
       throw new Error(validate.error.message);
     }
 
-    const { code, name, file } = body;
+    const { code, name } = body;
 
-    const findDocument = await DocumentModel.findOne({
+    const findSchoolYear = await SchoolYearModel.findOne({
       where: {
         id,
       },
     });
 
-    await findDocument.update({
+    await findSchoolYear.update({
       code,
       name,
-      file,
     });
 
-    return findDocument;
+    return findSchoolYear;
   },
 
-  deleteDocument: async (id) => {
-    const validate = DocumentValidation.deleteDocument({
+  deleteSchoolYear: async (id) => {
+    const validate = SchoolYearValidation.deleteSchoolYear({
       id,
     });
 
@@ -90,14 +88,14 @@ const DocumentService = {
       throw new Error(validate.error.message);
     }
 
-    const destroyUser = await DocumentModel.destroy({
+    const destroySchoolYear = await SchoolYearModel.destroy({
       where: {
         id,
       },
     });
 
-    return destroyUser;
+    return destroySchoolYear;
   },
 };
 
-export default DocumentService;
+export default SchoolYearService;
