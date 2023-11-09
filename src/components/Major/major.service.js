@@ -55,7 +55,7 @@ const MajorService = {
     });
 
     if (findMajor) {
-      throw new Error("Major code is exited. Please try again");
+      throw new Error("Mã ngành học đã tồn tại");
     }
 
     const newMajor = await MajorModel.create({

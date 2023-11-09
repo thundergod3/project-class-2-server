@@ -3,6 +3,7 @@ import session from "express-session";
 import cors from "cors";
 import dotenv from "dotenv";
 import sessionStore from "connect-session-sequelize";
+import bodyParser from "body-parser";
 
 import routes from "./routes/index.js";
 import sequelize from "./configs/sequelize.js";
@@ -18,6 +19,7 @@ dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   session({
     secret: "r8q,+&1LM3)CD*zAGpx1xm{NeQhc;#",

@@ -24,11 +24,13 @@ UserModel.hasOne(ReportThesisModel, { foreignKey: "userId" });
 SchoolYearModel.hasOne(SemesterModel, { foreignKey: "schoolYearId" });
 SchoolYearModel.hasMany(ThesisModel, { foreignKey: "schoolYearId" });
 SchoolYearModel.hasMany(TopicModel, { foreignKey: "schoolYearId" });
+SchoolYearModel.hasMany(UserModel, { foreignKey: "schoolYearId" });
 
 MajorModel.belongsTo(FacultyModel);
 UserModel.belongsTo(FacultyModel);
 UserModel.belongsTo(MajorModel);
 UserModel.belongsTo(ThesisModel);
+UserModel.belongsTo(SchoolYearModel);
 ModuleModel.belongsTo(FacultyModel);
 ModuleModel.belongsTo(MajorModel);
 TopicModel.belongsTo(FacultyModel);

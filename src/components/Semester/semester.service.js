@@ -13,14 +13,7 @@ const SemesterService = {
 
     if (keyword) {
       filter = {
-        [Op.or]: [
-          {
-            code: {
-              [Op.like]: "%" + keyword + "%",
-            },
-          },
-          { name: { [Op.like]: "%" + keyword + "%" } },
-        ],
+        [Op.or]: [{ name: { [Op.like]: "%" + keyword + "%" } }],
       };
     }
 

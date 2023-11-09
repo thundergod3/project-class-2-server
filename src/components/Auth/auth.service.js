@@ -5,6 +5,7 @@ import {
   ResetTokenModel,
   FacultyModel,
   MajorModel,
+  SchoolYearModel,
 } from "../../models/index.js";
 
 const AuthService = {
@@ -13,7 +14,11 @@ const AuthService = {
       where: {
         id: userId,
       },
-      include: [{ model: FacultyModel }, { model: MajorModel }],
+      include: [
+        { model: FacultyModel },
+        { model: MajorModel },
+        { model: SchoolYearModel },
+      ],
     });
 
     delete user?.password;
@@ -27,24 +32,23 @@ const AuthService = {
       where: {
         username,
       },
+      include: [
+        { model: FacultyModel },
+        { model: MajorModel },
+        { model: SchoolYearModel },
+      ],
     });
 
     if (user && validatePassword(password, user.password)) {
       const currentUser = {
-        id: user.id,
-        code: user.code,
-        name: user.name,
-        role: user.role,
-        username: user.username,
-        password: user.password,
-        topicId: user.topicId,
+        user,
         token: generateToken(user.id),
       };
 
       return currentUser;
     } else {
       return {
-        msg: "Invalid username",
+        msg: "Tên đăng nhập hoặc mật khẩu không chính xác",
       };
     }
   },
@@ -55,6 +59,11 @@ const AuthService = {
       where: {
         username,
       },
+      include: [
+        { model: FacultyModel },
+        { model: MajorModel },
+        { model: SchoolYearModel },
+      ],
     });
 
     if (userExists) {
@@ -74,12 +83,7 @@ const AuthService = {
 
       if (user) {
         const newUser = {
-          id: user.id,
-          code: user.code,
-          name: user.name,
-          role: user.role,
-          username: user.username,
-          password: user.password,
+          user,
           token: generateToken(user.id),
         };
 

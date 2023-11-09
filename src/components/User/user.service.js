@@ -84,6 +84,7 @@ const UserService = {
       thesisId,
       topic,
       dob,
+      schoolYearId,
     } = body;
 
     const findUser = await UserModel.findOne({
@@ -103,6 +104,7 @@ const UserService = {
       thesisId,
       topic,
       dob,
+      schoolYearId,
     });
 
     return findUser;

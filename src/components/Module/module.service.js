@@ -27,7 +27,7 @@ const ModuleService = {
     const data = await ModuleModel.findAndCountAll({
       limit,
       offset,
-      where: keyword,
+      where: filter,
       include: [{ model: FacultyModel }, { model: MajorModel }],
       distinct: true,
     });

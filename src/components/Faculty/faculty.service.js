@@ -52,7 +52,7 @@ const FacultyService = {
     });
 
     if (findFaculty) {
-      throw new Error("Faculty code is exited. Please try again");
+      throw new Error("Mã khoa đã tồn tại");
     }
 
     const newFaculty = await FacultyModel.create({

@@ -15,6 +15,7 @@ const UserModel = sequelize.define("users", {
   topicId: { type: Sequelize.UUID },
   topic: { type: Sequelize.JSONB },
   thesisId: { type: Sequelize.UUID },
+  schoolYearId: { type: Sequelize.UUID },
   code: { type: Sequelize.STRING, allowNull: false },
   name: { type: Sequelize.STRING, allowNull: false },
   role: { type: Sequelize.STRING, allowNull: false },

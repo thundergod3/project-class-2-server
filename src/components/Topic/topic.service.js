@@ -3,6 +3,7 @@ import pkg from "sequelize";
 import {
   FacultyModel,
   MajorModel,
+  SchoolYearModel,
   TopicModel,
   UserModel,
 } from "../../models/index.js";
@@ -61,6 +62,7 @@ const TopicService = {
         { model: FacultyModel },
         { model: MajorModel },
         { model: UserModel },
+        { model: SchoolYearModel },
       ],
       distinct: true,
     });
