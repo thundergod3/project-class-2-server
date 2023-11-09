@@ -27,8 +27,8 @@ const ThesisService = {
             },
           },
           {
-            user: {
-              code: {
+            topic: {
+              name: {
                 [Op.like]: "%" + keyword + "%",
               },
             },
@@ -49,9 +49,9 @@ const ThesisService = {
     const data = await ThesisModel.findAndCountAll({
       limit,
       offset,
-      where: filter,
       include: [
         {
+          where: filter,
           model: UserModel,
           include: [
             {
