@@ -64,6 +64,17 @@ const TopicValidation = {
 
     return schema.validate(body);
   },
+
+  approveProposalTopic: (body) => {
+    const schema = Validator.object().keys({
+      code: Joi.string().required(),
+      name: Joi.string().required(),
+      reason: Joi.string().required(),
+      majorId: Joi.string().required(),
+    });
+
+    return schema.validate(body);
+  },
 };
 
 export default TopicValidation;

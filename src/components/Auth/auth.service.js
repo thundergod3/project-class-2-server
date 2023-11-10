@@ -59,17 +59,17 @@ const AuthService = {
       where: {
         username,
       },
-      include: [
-        { model: FacultyModel },
-        { model: MajorModel },
-        { model: SchoolYearModel },
-      ],
     });
 
+    console.log("username", username);
+    console.log("userExists", userExists);
+
     if (userExists) {
-      res.status(401).json({
-        msg: "User already existed. Please try again with another username",
-      });
+      throw new Error(
+        role === "student"
+          ? "Mã sinh viên đã tồn tại"
+          : "Mã giáo viên đã tồn tại"
+      );
     } else {
       const user = await UserModel.create({
         username,

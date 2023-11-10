@@ -14,10 +14,20 @@ const ReportThesisService = {
     const { keyword = "", page = 0, limit = 10 } = query;
     const offset = page * limit;
     let filter = {};
+    let filterUser = {};
 
     if (keyword) {
       filter = {
         [Op.or]: [{ name: { [Op.like]: "%" + keyword + "%" } }],
+      };
+      filterUser = {
+        [Op.or]: [
+          {
+            code: {
+              [Op.like]: "%" + keyword + "%",
+            },
+          },
+        ],
       };
     }
 
@@ -27,6 +37,7 @@ const ReportThesisService = {
       where: filter,
       include: [
         {
+          where: filterUser,
           model: UserModel,
           include: [
             {

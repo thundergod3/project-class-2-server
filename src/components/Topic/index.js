@@ -66,6 +66,18 @@ export async function unRegisterTopic(req, res, next) {
     next(new HttpError(error.message.status, error.message));
   }
 }
+export async function approveProposalTopic(req, res, next) {
+  try {
+    const result = await TopicService.approveProposalTopic(
+      req.params.id,
+      req.body
+    );
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(new HttpError(error.message.status, error.message));
+  }
+}
 
 // [DELETE]
 export async function deleteTopic(req, res, next) {

@@ -16,10 +16,10 @@ const ThesisService = {
     const { keyword = "", status, page = 0, limit = 10 } = query;
     const offset = page * limit;
     let filter = {};
+    let filterUser = {};
 
     if (keyword) {
-      filter = {
-        ...filter,
+      filterUser = {
         [Op.or]: [
           {
             code: {
@@ -39,7 +39,6 @@ const ThesisService = {
 
     if (status) {
       filter = {
-        ...filter,
         status: {
           [Op.iLike]: status,
         },
@@ -49,9 +48,10 @@ const ThesisService = {
     const data = await ThesisModel.findAndCountAll({
       limit,
       offset,
+      where: filter,
       include: [
         {
-          where: filter,
+          where: filterUser,
           model: UserModel,
           include: [
             {

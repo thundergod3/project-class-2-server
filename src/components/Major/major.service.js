@@ -84,6 +84,15 @@ const MajorService = {
         id,
       },
     });
+    const findExistMajor = await MajorModel.findOne({
+      where: {
+        code,
+      },
+    });
+
+    if (findMajor.id !== findExistMajor.id) {
+      throw new Error("Mã ngành học đã tồn tại");
+    }
 
     await findMajor.update({
       code,

@@ -80,6 +80,15 @@ const FacultyService = {
         id,
       },
     });
+    const findExistFaculty = await FacultyModel.findOne({
+      where: {
+        code,
+      },
+    });
+
+    if (findFaculty.id !== findExistFaculty.id) {
+      throw new Error("Mã khoa đã tồn tại");
+    }
 
     await findFaculty.update({
       code,

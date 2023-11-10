@@ -201,7 +201,7 @@ const TopicService = {
       throw new Error(validate.error.message);
     }
 
-    const { code, name, reason, facultyId, majorId } = body;
+    const { code, name, reason, facultyId, majorId, schoolYearId } = body;
 
     const findTopic = await TopicModel.findOne({
       where: {
@@ -223,9 +223,30 @@ const TopicService = {
       majorId,
       userId,
       status: "draft",
+      schoolYearId,
     });
 
     return newTopic;
+  },
+
+  approveProposalTopic: async (id, body) => {
+    const validate = TopicValidation.approveProposalTopic(body);
+
+    if (validate.error) {
+      throw new Error(validate.error.message);
+    }
+
+    const findTopic = await TopicModel.findOne({
+      where: {
+        id,
+      },
+    });
+
+    await findTopic.update({
+      status: null,
+    });
+
+    return findTopic;
   },
 };
 
