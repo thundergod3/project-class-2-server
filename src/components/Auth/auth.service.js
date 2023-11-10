@@ -57,15 +57,22 @@ const AuthService = {
   },
 
   register: async (body) => {
-    const { username, password, code, name, role, facultyId, majorId } = body;
+    const {
+      username,
+      password,
+      code,
+      name,
+      role,
+      facultyId,
+      majorId,
+      schoolYearId,
+      semesterId,
+    } = body;
     const userExists = await UserModel.findOne({
       where: {
         username,
       },
     });
-
-    console.log("username", username);
-    console.log("userExists", userExists);
 
     if (userExists) {
       throw new Error(
@@ -82,6 +89,8 @@ const AuthService = {
         role,
         facultyId,
         majorId,
+        schoolYearId,
+        semesterId,
       });
 
       if (user) {
