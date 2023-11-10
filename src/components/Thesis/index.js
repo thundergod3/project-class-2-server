@@ -20,6 +20,15 @@ export async function getThesisDetail(req, res, next) {
     next(new HttpError(error.message.status, error.message));
   }
 }
+export async function getReportFinishThesisList(req, res, next) {
+  try {
+    const result = await ThesisService.getReportFinishThesisList(req.query);
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(new HttpError(error.message.status, error.message));
+  }
+}
 
 // [POST]
 export async function createThesis(req, res, next) {

@@ -1,6 +1,12 @@
 import pkg from "sequelize";
 
-import { FacultyModel, MajorModel, UserModel } from "../../models/index.js";
+import {
+  FacultyModel,
+  MajorModel,
+  SchoolYearModel,
+  SemesterModel,
+  UserModel,
+} from "../../models/index.js";
 import UserValidation from "./user.validation.js";
 import AuthController from "../Auth/auth.service.js";
 
@@ -38,7 +44,12 @@ const UserService = {
       limit,
       offset,
       where: filter,
-      include: [{ model: FacultyModel }, { model: MajorModel }],
+      include: [
+        { model: FacultyModel },
+        { model: MajorModel },
+        { model: SchoolYearModel },
+        { model: SemesterModel },
+      ],
       distinct: true,
     });
 
@@ -85,6 +96,7 @@ const UserService = {
       topic,
       dob,
       schoolYearId,
+      semesterId,
     } = body;
 
     const findUser = await UserModel.findOne({
@@ -105,6 +117,7 @@ const UserService = {
       topic,
       dob,
       schoolYearId,
+      semesterId,
     });
 
     return findUser;

@@ -11,6 +11,7 @@ import {
   createFinishThesis,
   assignReviewTeacher,
   updateCouncil,
+  getReportFinishThesisList,
 } from "../components/Thesis/index.js";
 import {
   adminAuthentication,
@@ -26,6 +27,12 @@ thesis.get(
   authentication,
   adminAuthentication,
   asyncHandler(getThesisList)
+);
+thesis.get(
+  "/total",
+  authentication,
+  adminAuthentication,
+  asyncHandler(getReportFinishThesisList)
 );
 thesis.get(
   "/:id",
@@ -49,12 +56,7 @@ thesis.post(
 );
 
 // [PUT]
-thesis.put(
-  "/update/:id",
-  authentication,
-  studentAuthentication,
-  asyncHandler(updateThesis)
-);
+thesis.put("/update/:id", authentication, asyncHandler(updateThesis));
 thesis.put(
   "/approve/:id",
   authentication,

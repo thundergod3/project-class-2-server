@@ -18,6 +18,12 @@ module.exports = {
       thesisId: {
         type: Sequelize.UUID,
       },
+      schoolYearId: {
+        type: Sequelize.UUID,
+      },
+      semesterId: {
+        type: Sequelize.UUID,
+      },
       code: { type: Sequelize.STRING, allowNull: false },
       name: { type: Sequelize.STRING, allowNull: false },
       role: { type: Sequelize.STRING, allowNull: false },

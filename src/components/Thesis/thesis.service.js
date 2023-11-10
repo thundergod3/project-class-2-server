@@ -2,8 +2,8 @@ import pkg from "sequelize";
 
 import {
   FacultyModel,
+  MajorModel,
   ThesisModel,
-  TopicModel,
   UserModel,
 } from "../../models/index.js";
 import ThesisValidation from "./thesis.validation.js";
@@ -57,6 +57,9 @@ const ThesisService = {
             {
               model: FacultyModel,
             },
+            {
+              model: MajorModel,
+            },
           ],
         },
       ],
@@ -66,6 +69,125 @@ const ThesisService = {
     return {
       total: data.count,
       results: data.rows?.filter((record) => record?.user?.role !== "admin"),
+    };
+  },
+
+  getReportFinishThesisList: async (query) => {
+    const { semesterId, schoolYearId } = query;
+    let filterUser = {
+      role: {
+        [Op.iLike]: "student",
+      },
+    };
+    let filterFinishThesis = {
+      status: {
+        [Op.iLike]: "finish",
+      },
+      result: {
+        [Op.iLike]: "complete",
+      },
+    };
+
+    if (semesterId) {
+      filterUser = {
+        ...filterUser,
+        semesterId: {
+          [Op.eq]: semesterId,
+        },
+      };
+    }
+
+    if (schoolYearId) {
+      filterUser = {
+        ...filterUser,
+        schoolYearId: {
+          [Op.eq]: schoolYearId,
+        },
+      };
+    }
+
+    const dataUsers = await UserModel.findAll({
+      where: filterUser,
+      include: [
+        {
+          model: MajorModel,
+        },
+      ],
+      distinct: true,
+    });
+    const formatDataUsers = dataUsers.map((record) => ({
+      majorId: record?.majorId,
+      major: {
+        name: record?.major?.name,
+      },
+    }));
+    const dataThesis = await ThesisModel.findAll({
+      where: filterFinishThesis,
+      include: [
+        {
+          model: UserModel,
+          where: filterUser,
+          include: [
+            {
+              model: MajorModel,
+            },
+          ],
+        },
+      ],
+      distinct: true,
+    });
+    const formatDataThesis = dataThesis.map((record) => ({
+      status: "finish",
+      majorId: record?.user?.majorId,
+      major: {
+        name: record?.user?.major?.name,
+      },
+    }));
+
+    let formatData = [];
+
+    [...formatDataUsers, ...formatDataThesis].forEach((record) => {
+      let item = {
+        majorId: record?.majorId,
+        majorName: record?.major?.name,
+        totalUser: 0,
+        totalUserFinish: 0,
+        percent: 0,
+      };
+      const findItemBaseMajor = formatData.find(
+        (record) => record?.majorId === item?.majorId
+      );
+
+      if (findItemBaseMajor) {
+        const findIndexItemBaseMajor = formatData.findIndex(
+          (record) => record?.majorId === item?.majorId
+        );
+
+        if (record?.status === "finish") {
+          formatData[findIndexItemBaseMajor].totalUserFinish =
+            findItemBaseMajor.totalUserFinish + 1;
+        } else {
+          formatData[findIndexItemBaseMajor].totalUser =
+            findItemBaseMajor.totalUser + 1;
+        }
+      } else {
+        if (record?.status === "finish") {
+          item.totalUserFinish += 1;
+        } else {
+          item.totalUser += 1;
+        }
+
+        formatData.push(item);
+      }
+    });
+
+    formatData = formatData.map((record) => ({
+      ...record,
+      percent: (record?.totalUserFinish / record?.totalUser) * 100,
+    }));
+
+    return {
+      results: formatData,
     };
   },
 
@@ -122,7 +244,29 @@ const ThesisService = {
       throw new Error(validate.error.message);
     }
 
-    const { score, result, userId, fullName, dob, file, schoolYearId } = body;
+    const {
+      score,
+      result,
+      userId,
+      userCode,
+      fullName,
+      dob,
+      file,
+      schoolYearId,
+    } = body;
+    let formatUserId = "";
+
+    if (userCode) {
+      const user = await UserModel.findOne({
+        where: {
+          code: userCode,
+        },
+      });
+
+      formatUserId = user.id;
+    } else {
+      formatUserId = userId;
+    }
 
     const findThesis = await ThesisModel.findOne({
       where: {
@@ -136,7 +280,7 @@ const ThesisService = {
       file,
     });
 
-    await UserService.updateUser(userId, {
+    await UserService.updateUser(formatUserId, {
       fullName,
       dob,
       file,

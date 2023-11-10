@@ -6,6 +6,7 @@ import {
   FacultyModel,
   MajorModel,
   SchoolYearModel,
+  SemesterModel,
 } from "../../models/index.js";
 
 const AuthService = {
@@ -18,6 +19,7 @@ const AuthService = {
         { model: FacultyModel },
         { model: MajorModel },
         { model: SchoolYearModel },
+        { model: SemesterModel },
       ],
     });
 
@@ -36,6 +38,7 @@ const AuthService = {
         { model: FacultyModel },
         { model: MajorModel },
         { model: SchoolYearModel },
+        { model: SemesterModel },
       ],
     });
 

@@ -26,10 +26,6 @@ const ThesisValidation = {
   updateThesis: (body) => {
     const schema = Validator.object().keys({
       id: Joi.string().required(),
-      userId: Joi.string().required(),
-      fullName: Joi.string().required(),
-      dob: Joi.string().required(),
-      schoolYearId: Joi.string().required(),
     });
 
     return schema.validate(body);
