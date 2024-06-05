@@ -86,7 +86,7 @@ const FacultyService = {
       },
     });
 
-    if (findFaculty.id !== findExistFaculty.id) {
+    if (findExistFaculty) {
       throw new Error("Mã khoa đã tồn tại");
     }
 
